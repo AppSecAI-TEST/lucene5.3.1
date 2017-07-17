@@ -21,7 +21,7 @@ import org.apache.lucene.store.FSDirectory;
  * 创建索引
  * @author yuxiao
  */
-public class CreateIndex {
+public class CreateIndex { 
 	
 	String data = "张明,31,1985-5-11 18:30:05,31.12345,117.98765,370304198505111011;"
 				+ "刘明,29,1986-6-2 9:10:12,31.23456,117.87654,370109198606021889;"
