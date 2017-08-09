@@ -63,10 +63,8 @@ public class CreateIndex {
 	
 	public String dateFormat(String date) {
 		try {
-			DateFormat df1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-			String d1 = df1.format(df1.parse(date));
-			d1 = d1.replaceAll("\\s|[-]|[:]", "");
-			return d1;
+			DateFormat df1 = new SimpleDateFormat("yyyyMMddHHmmss");
+			return df1.format(df1.parse(date));
 		} catch(Exception e) {
 			e.printStackTrace();
 			return null;
