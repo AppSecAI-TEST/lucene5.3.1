@@ -133,7 +133,7 @@ public class QueryIndex {
 			tokenStream.close();
 			
 			for (String keyword : list) {
-				StringBuffer sb = new StringBuffer("<span style='color:#FF0000'>");
+				StringBuffer sb = new StringBuffer("<span style='color:#E02222'>");
 				sb.append(keyword);
 				sb.append("</span>");
 				content = content.replaceAll(keyword, sb.toString());
