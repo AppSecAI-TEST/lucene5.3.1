@@ -114,32 +114,28 @@ public class ReadFiles {
 	            Iterator<Row> rows = sheet.rowIterator(); //获得第一个表单的迭代器  
 	            while (rows.hasNext()) {
 	                Row row = rows.next();  //获得行数据  
-	                System.out.println("Row #" + row.getRowNum());  //获得行号从0开始
 	                result.append("<br/>").append(row.getRowNum()).append(",");
 	                Iterator<Cell> cells = row.cellIterator();    //获得第一行的迭代器  
 	                while (cells.hasNext()) {
 	                    Cell cell = cells.next();
-	                    System.out.println("Cell #" + cell.getColumnIndex());
 	                    switch (cell.getCellType()) {//根据cell中的类型来输出数据
 		                    case HSSFCell.CELL_TYPE_NUMERIC:
 		                    	if (HSSFDateUtil.isCellDateFormatted(cell)) {// 处理日期格式、时间格式  
 		                            SimpleDateFormat sdf = null;  
-		                            if (cell.getCellStyle().getDataFormat() == HSSFDataFormat  
-		                                    .getBuiltinFormat("h:mm")) {  
-		                                sdf = new SimpleDateFormat("HH:mm");  
+		                            if (cell.getCellStyle().getDataFormat() == HSSFDataFormat.getBuiltinFormat("h:mm")) {  
+		                                sdf = new SimpleDateFormat("HH:mm");
 		                            } else {// 日期  
-		                                sdf = new SimpleDateFormat("yyyy-MM-dd");  
+		                                sdf = new SimpleDateFormat("yyyy-M-d");  
 		                            }  
 		                            Date date = cell.getDateCellValue();
 		                            result.append(sdf.format(date)).append(",");
 		                        } else if (cell.getCellStyle().getDataFormat() == 58) {  
 		                            // 处理自定义日期格式：m月d日(通过判断单元格的格式id解决，id的值是58)  
-		                            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");  
+		                            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-M-d");  
 		                            double value = cell.getNumericCellValue();  
-		                            Date date = org.apache.poi.ss.usermodel.DateUtil  
-		                                    .getJavaDate(value);  
+		                            Date date = org.apache.poi.ss.usermodel.DateUtil.getJavaDate(value);  
 		                            result.append(sdf.format(date)).append(",");
-		                        } else {  
+		                        } else {
 		                            double value = cell.getNumericCellValue();  
 		                            CellStyle style = cell.getCellStyle();  
 		                            DecimalFormat format = new DecimalFormat();  
@@ -151,23 +147,8 @@ public class ReadFiles {
 		                            result.append(format.format(value).replaceAll(",", "")).append(",");
 		                        }  
 		                        break;
-		                    case HSSFCell.CELL_TYPE_BLANK:
-		                        result.append(" ").append(",");
-		                        break;
-		                    case HSSFCell.CELL_TYPE_ERROR:
-		                        result.append(cell.getErrorCellValue()).append(",");
-		                        break;
-		                    case HSSFCell.CELL_TYPE_STRING:
-		                    	result.append(cell.getStringCellValue()).append(",");
-		                        break;  
-		                    case HSSFCell.CELL_TYPE_BOOLEAN:
-		                        result.append(cell.getBooleanCellValue()).append(",");
-		                        break;  
-		                    case HSSFCell.CELL_TYPE_FORMULA:
-		                        result.append(cell.getCellFormula()).append(",");
-		                        break;  
 		                    default:  
-		                    	result.append(",");
+		                    	result.append(cell).append(",");
 		                    break;
 		                }
 	                }
