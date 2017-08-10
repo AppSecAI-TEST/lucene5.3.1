@@ -154,6 +154,7 @@ public class ReadFiles {
 	                }
 	            }
             }
+            input.close();
         } catch (IOException ex) {  
             ex.printStackTrace();  
         }
