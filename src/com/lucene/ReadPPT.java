@@ -23,6 +23,7 @@ import org.apache.lucene.search.ScoreDoc;
 import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.FSDirectory;
 import org.apache.poi.POIXMLDocument;
+import org.apache.poi.hslf.extractor.PowerPointExtractor;
 import org.apache.poi.hslf.usermodel.HSLFSlide;
 import org.apache.poi.hslf.usermodel.HSLFSlideShow;
 import org.apache.poi.hslf.usermodel.HSLFTextParagraph;
@@ -41,16 +42,9 @@ public class ReadPPT {
 			File file = new File(dataPath);
 			if (file.getName().toLowerCase().trim().endsWith("ppt")) {
 				InputStream is = new FileInputStream(file);
-				HSLFSlideShow ss = new HSLFSlideShow(is);
-				List<HSLFSlide> slides = ss.getSlides();
-				for (HSLFSlide s : slides) {
-					List<List<HSLFTextParagraph>> list0 = s.getTextParagraphs();
-					for (List<HSLFTextParagraph> list1 : list0) {
-						for (HSLFTextParagraph htp : list1) {
-							content.append(htp.toString());
-						}
-					}
-				}
+				PowerPointExtractor extractor = new PowerPointExtractor(is);
+				content.append(extractor.getText());
+				is.close();
 			} else {
 				content.append(
 					new XSLFPowerPointExtractor(POIXMLDocument.openPackage(dataPath)).getText());
