@@ -29,7 +29,7 @@ import org.apache.poi.xwpf.extractor.XWPFWordExtractor;
 
 public class ReadWord {
 	
-	String dataPath = "C:\\Users\\Administrator\\Desktop\\请假申请单-于潇_2017-7-9.docx";
+	String dataPath = "C:\\Users\\Administrator\\Desktop\\接口升级注意事项.docx";
 	Analyzer ika = new IKAnalyzer5x();
 	Directory directory = null;
 	IndexWriterConfig config = null;
@@ -48,6 +48,7 @@ public class ReadWord {
 				WordExtractor ex = new WordExtractor(is);
 				result = ex.getText();
 				ex.close();
+				is.close();
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -88,7 +89,7 @@ public class ReadWord {
 		    QueryParser parser = new QueryParser("contents", ika);
 		    MultiFieldQueryParser mparser = new MultiFieldQueryParser(
 		    		new String[]{"contents", "fileName"}, ika);
-		    String keyword = "请假申请单";
+		    String keyword = "接口";
 		    Query query = mparser.parse(keyword);
 		    
 		    Builder builder = new Builder();

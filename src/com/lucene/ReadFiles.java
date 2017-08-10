@@ -42,7 +42,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 public class ReadFiles {
 	
 	String dataPath = "C:\\Users\\Administrator\\Desktop\\请假申请单.txt";
-	String dataPath2 = "C:\\Users\\Administrator\\Desktop\\流程规划.xls";
+	String dataPath2 = "C:\\Users\\Administrator\\Desktop\\流程规划.xlsx";
 	Analyzer ika = new IKAnalyzer5x();
 	Directory directory = null;
 	IndexWriterConfig config = null;
@@ -123,7 +123,7 @@ public class ReadFiles {
 		                    	if (HSSFDateUtil.isCellDateFormatted(cell)) {// 处理日期格式、时间格式  
 		                            SimpleDateFormat sdf = null;  
 		                            if (cell.getCellStyle().getDataFormat() == HSSFDataFormat.getBuiltinFormat("h:mm")) {  
-		                                sdf = new SimpleDateFormat("HH:mm");
+		                                sdf = new SimpleDateFormat("H:m");
 		                            } else {// 日期  
 		                                sdf = new SimpleDateFormat("yyyy-M-d");  
 		                            }  
@@ -154,6 +154,7 @@ public class ReadFiles {
 	                }
 	            }
             }
+            wb.close();
             input.close();
         } catch (IOException ex) {  
             ex.printStackTrace();  

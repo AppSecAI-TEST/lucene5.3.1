@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
 import java.nio.file.Paths;
-import java.util.List;
 
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.document.Document;
@@ -24,14 +23,12 @@ import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.FSDirectory;
 import org.apache.poi.POIXMLDocument;
 import org.apache.poi.hslf.extractor.PowerPointExtractor;
-import org.apache.poi.hslf.usermodel.HSLFSlide;
-import org.apache.poi.hslf.usermodel.HSLFSlideShow;
-import org.apache.poi.hslf.usermodel.HSLFTextParagraph;
+import org.apache.poi.openxml4j.opc.OPCPackage;
 import org.apache.poi.xslf.extractor.XSLFPowerPointExtractor;
 
 public class ReadPPT {
 	
-	String dataPath = "C:\\Users\\Administrator\\Desktop\\ADP快速开发平台系统介绍V1.0.ppt";
+	String dataPath = "C:\\Users\\Administrator\\Desktop\\ADP快速开发平台系统介绍V1.0.pptx";
 	Analyzer ika = new IKAnalyzer5x();
 	Directory directory = null;
 	IndexWriterConfig config = null;
@@ -44,10 +41,12 @@ public class ReadPPT {
 				InputStream is = new FileInputStream(file);
 				PowerPointExtractor extractor = new PowerPointExtractor(is);
 				content.append(extractor.getText());
+				extractor.close();
 				is.close();
 			} else {
-				content.append(
-					new XSLFPowerPointExtractor(POIXMLDocument.openPackage(dataPath)).getText());
+				XSLFPowerPointExtractor xsl = new XSLFPowerPointExtractor(POIXMLDocument.openPackage(dataPath));
+				content.append(xsl.getText());
+				xsl.close();
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
